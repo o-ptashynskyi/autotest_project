@@ -11,3 +11,5 @@ class MainPage(BasePage):
     
     def should_be_login_link(self):
         assert self.is_element_present(By.CSS_SELECTOR, 'a#login_link'), 'Login link is not present'
+
+    
