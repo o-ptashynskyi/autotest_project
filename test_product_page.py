@@ -5,7 +5,7 @@ from .pages.login_page import LoginPage
 import pytest
 
 
-@pytest.mark.new
+
 class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
@@ -20,6 +20,7 @@ class TestUserAddToBasketFromProductPage():
         page.should_be_authorized_user()
 
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         self.browser = browser
         link = 'https://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/?promo=newYear'
@@ -31,9 +32,10 @@ class TestUserAddToBasketFromProductPage():
         time.sleep(2)
         name_in_message = page.recieve_name_from_message().text
         total_in_message = page.recieve_total_from_message().text
-        assert product_name == name_in_message, 'Product name is not correct'
-        assert product_price == total_in_message, 'Product price is not correct'
+        page.product_name_is_correct(product_name, name_in_message)
+        page.product_price_is_correct(product_price, total_in_message)
         time.sleep(2)
+
 
     def test_user_cant_see_success_message(self, browser):
         self.browser = browser
@@ -43,6 +45,7 @@ class TestUserAddToBasketFromProductPage():
         page.should_not_be_success_message()
 
 
+@pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser, link):
         link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/'
         page = ProductPage(browser, link)
@@ -57,12 +60,15 @@ def test_guest_can_add_product_to_basket(browser, link):
         assert product_price == total_in_message, 'Product price is not correct'
         time.sleep(3)
 
+
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
     page.open()
     page.should_be_login_link()
 
+
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -70,6 +76,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.go_to_login_page
 
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/'
     page = ProductPage(browser, link)

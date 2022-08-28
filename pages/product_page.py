@@ -32,4 +32,10 @@ class ProductPage(BasePage):
     def success_message_is_disappear(self):
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), 'Success message is not disappeared'
 
+    def product_name_is_correct(self, page_name, message_name):
+        assert page_name == message_name, 'Product name is not correct'
+
+    def product_price_is_correct(self, page_price, message_price):
+        assert page_price == message_price, 'Product price is not correct'
+
     
