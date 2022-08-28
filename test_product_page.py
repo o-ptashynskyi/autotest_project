@@ -46,8 +46,8 @@ class TestUserAddToBasketFromProductPage():
 
 
 @pytest.mark.need_review
-def test_guest_can_add_product_to_basket(browser, link):
-        link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/'
+def test_guest_can_add_product_to_basket(browser):
+        link = 'https://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/?promo=newYear'
         page = ProductPage(browser, link)
         page.open()
         product_name = page.recieve_product_name().text
